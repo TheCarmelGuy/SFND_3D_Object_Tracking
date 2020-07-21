@@ -28,15 +28,15 @@ int main(int argc, const char *argv[])
 
         
  
-  ofstream debugStats;
+//  ofstream debugStats;
 
-  string descriptorType = std::string(argv[2]); // BRIEF, ORB, FREAK, AKAZE, SIFT
-  string detectorType = std::string(argv[1]);//// -> HARRIS, FAST, BRISK, ORB, AKAZE, SIFT, SHITOMASI
+//  string descriptorType = std::string(argv[2]); // BRIEF, ORB, FREAK, AKAZE, SIFT
+//  string detectorType = std::string(argv[1]);//// -> HARRIS, FAST, BRISK, ORB, AKAZE, SIFT, SHITOMASI
   
 
-  std::stringstream debugFilename;
-  debugFilename<<detectorType<<"-"<<descriptorType<<".csv";
-  debugStats.open(debugFilename.str());
+//  std::stringstream debugFilename;
+//  debugFilename<<detectorType<<"-"<<descriptorType<<".csv";
+//  debugStats.open(debugFilename.str());
 //  debugStats.open("ttcLidar.csv");
     
 
@@ -87,7 +87,7 @@ int main(int argc, const char *argv[])
     double sensorFrameRate = 10.0 / imgStepWidth; // frames per second for Lidar and camera
     int dataBufferSize = 2;       // no. of images which are held in memory (ring buffer) at the same time
     vector<DataFrame> dataBuffer; // list of data frames which are held in memory at the same time
-    bool bVis = false;            // visualize results
+    bool bVis = true;            // visualize results
 
     /* MAIN LOOP OVER ALL IMAGES */
 
@@ -144,7 +144,7 @@ int main(int argc, const char *argv[])
         clusterLidarWithROI((dataBuffer.end()-1)->boundingBoxes, (dataBuffer.end() - 1)->lidarPoints, shrinkFactor, P_rect_00, R_rect_00, RT);
 
         // Visualize 3D objects
-        bVis = false;
+        bVis = true;
         if(bVis)
         {
             show3DObjects((dataBuffer.end()-1)->boundingBoxes, cv::Size(4.0, 10.0), cv::Size(500, 500), true);
@@ -165,7 +165,7 @@ int main(int argc, const char *argv[])
 
         // extract 2D keypoints from current image
         vector<cv::KeyPoint> keypoints; // create empty feature list for current image
-        //string detectorType = "SHITOMASI";
+        string detectorType = "SIFT";
         
         if (detectorType.compare("SHITOMASI") == 0)
         {
@@ -228,7 +228,7 @@ int main(int argc, const char *argv[])
   
 
         cv::Mat descriptors;
-  ///      string descriptorType = "SIFT"; // BRISK, BRIEF, ORB, FREAK, AKAZE, SIFT
+        string descriptorType = "FREAK"; // BRISK, BRIEF, ORB, FREAK, AKAZE, SIFT
  
       
         descKeypoints((dataBuffer.end() - 1)->keypoints, (dataBuffer.end() - 1)->cameraImg, descriptors, descriptorType);
@@ -318,11 +318,11 @@ int main(int argc, const char *argv[])
                     //// EOF STUDENT ASSIGNMENT
 
 
-                    debugStats<<ttcCamera<<std::endl;
+                    //debugStats<<ttcCamera<<std::endl;
                     //debugStats<<ttcCamera<<" "<<ttcLidar<<std::endl;
 
 
-                    bVis = false;
+                    bVis = true;
                     if (bVis)
                     {
                         cv::Mat visImg = (dataBuffer.end() - 1)->cameraImg.clone();
