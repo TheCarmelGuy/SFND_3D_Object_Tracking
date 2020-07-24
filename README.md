@@ -3,9 +3,18 @@
 <img src="course_code_structure.png" width="779" height="414" />
 
 
+## Description
+
+This project does the following:
+
+1. Finds Keypoints and Keypoint descriptors in image using several different classical CV algorithms 
+2. Matches Keypoints from consecutive frames
+3. Uses YOLO detector to find bounding boxes of vehicles in image
+4. Project lidar points into image and clusters lidar points, based on bounding boxes 
+5. Tracks vehicle directly in front of ego vehicle using keypoint matching matrix 
+6. Calcultes Time-To-Collision using cluster lidar or keypoint descriptors with Constant Acceleration Model
+
 ## Report Results
-
-
 To view results, look at the "results" directory. There you will find:
 
 * ANALYSIS.md: goes over my observations of TTC computations for both the Camera case as well as the Lidar case
